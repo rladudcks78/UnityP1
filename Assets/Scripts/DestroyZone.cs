@@ -51,5 +51,10 @@ public class DestroyZone : MonoBehaviour
             //제일 최적화 잘된 코드인듯
             //pf.bulletPool.Add(other.gameObject);
         }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+        }
     }
 }
