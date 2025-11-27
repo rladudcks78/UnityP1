@@ -103,15 +103,15 @@ public class PlayerFire : MonoBehaviour
             //    fireIndex = 0;
             //}
 
-            //2. 리스트로 오브젝트 풀링 발사 (간소화)
-            //bulletPool[fireIndex].SetActive(true);
-            //bulletPool[fireIndex].transform.position = firePoint.position;
-            //bulletPool[fireIndex].transform.up = firePoint.up;
-            //fireIndex++;
-            //if (fireIndex >= poolSize)
-            //{
-            //    fireIndex = 0;
-            //}
+            //2.리스트로 오브젝트 풀링 발사(간소화)
+            bulletPool[fireIndex].SetActive(true);
+            bulletPool[fireIndex].transform.position = firePoint.position;
+            bulletPool[fireIndex].transform.up = firePoint.up;
+            fireIndex++;
+            if (fireIndex >= poolSize)
+            {
+                fireIndex = 0;
+            }
 
             //2. 리스트로 오브젝트 풀링 발사 (이게 진짜 오브젝트 풀링)
             //if (bulletPool.Count > 0)
@@ -133,7 +133,7 @@ public class PlayerFire : MonoBehaviour
             //    bulletPool.Add(bullet);
             //}
 
-            
+
         }
 
 

@@ -13,14 +13,14 @@ public class PlayerController : MonoBehaviour
 
     //[SerializeField]
     //float moveSpeed = 5.0f;
-    //[SerializeField]
-    //float jumpSpeed = 7.0f;
+    [SerializeField]
+    float jumpSpeed = 7.0f;
 
-    //bool isGround = true;
+    bool isGround = true;
 
     //private Vector3 targetPosition;     //목표위치
 
-    //Rigidbody rb;
+    Rigidbody rb;
 
     private Camera mainCamera;            //메인 카메라
 
@@ -31,53 +31,53 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        //rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
 
         //초기 목표 위치를 현재 위치로 설정
         //targetPosition = transform.position; (MoveTowards 쓸 때 사용)
 
         //메인 카메라 참조 가져오기
-        mainCamera = Camera.main;
+        //mainCamera = Camera.main;
     }
     // Update is called once per frame
     void Update()
     {
-        //MoveWithGetAxis();
+        MoveWithGetAxis();
         //Jump();
         //Move1();
         //Move2();
         //Move3();
-        Move4();
+        //Move4();
 
         //플레이어 화면 안에 가두기
-        MoveInScreen();
+        //MoveInScreen();
     }
 
-    //void MoveWithGetAxis()
-    //{
-    //    float moveX = Input.GetAxis("Horizontal");
-    //    float moveZ = Input.GetAxis("Vertical");
+    void MoveWithGetAxis()
+    {
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
-    //    Vector3 dir = new Vector3(moveX, 0f, moveZ);
+        Vector3 dir = new Vector3(moveX, 0f, moveZ);
 
-    //    dir.Normalize();
+        dir.Normalize();
 
-    //    transform.Translate(dir * moveSpeed * Time.deltaTime);
-    //}
+        transform.Translate(dir * moveSpeed * Time.deltaTime);
+    }
 
-    //void Jump()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space) && isGround)
-    //    {
-    //        rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
-    //        isGround = false;
-    //    }
-    //}
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        {
+            rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+            isGround = false;
+        }
+    }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    isGround = true;
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        isGround = true;
+    }
 
     //void Move1()
     //{
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
     //{
     //    float moveX = Input.GetAxis("Horizontal");
     //    float moveY = Input.GetAxisRaw("Vertical");
-    //    Vector3 dir = new Vector3 (moveX, moveY, 0f);
+    //    Vector3 dir = new Vector3(moveX, moveY, 0f);
     //    dir.Normalize();
     //    transform.Translate(dir * moveSpeed * Time.deltaTime);
     //    //Translate는 로컬좌표계 기준 이동
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
     //    //2. 입력이 있으면 목표 위치 갱신
     //    if (moveX != 0f || moveY != 0f)
     //    {
-    //        Vector3 dir = new Vector3 (moveX, moveY, 0f);
+    //        Vector3 dir = new Vector3(moveX, moveY, 0f);
     //        dir.Normalize();
     //        targetPosition += dir * moveSpeed * Time.deltaTime; //1유닛 이동한 위치로 설정
     //    }
@@ -136,68 +136,68 @@ public class PlayerController : MonoBehaviour
     //        moveSpeed);
     //}
 
-    void Move4()
-    {
-        // 메인 카메라의 중요 함수
-        // 메인 카메라 또한 자주 사용하기 때문에 어디서든 접근 할 수 있도록 변수 선언해서 사용한다
-        // Camera.main: 씬에서 "MainCamera" 태그가 붙은 카메라를 찾아서 반환
+    //void Move4()
+    //{
+    //    // 메인 카메라의 중요 함수
+    //    // 메인 카메라 또한 자주 사용하기 때문에 어디서든 접근 할 수 있도록 변수 선언해서 사용한다
+    //    // Camera.main: 씬에서 "MainCamera" 태그가 붙은 카메라를 찾아서 반환
 
-        //1. ScreenToWorldPoint: 화면 좌표를 월드 좌표로 변환
-        //2. ScreenToViewportPoint: 화면 좌표를 뷰포트 좌표로 변환
-        //3. ViewportToWorldPoint: 뷰포트 좌표를 월드 좌표로 변환
-        //4. WorldToScreenPoint:  월드 좌표로 화면 좌표로 변환
-        //5. WorldToViewportPoint: 월드 좌표를 뷰포트 화면 좌표로 변환
-        //6. ViewportToScreenPoint: 뷰포트 좌표를 화면 좌표로 변환
-        // 뷰포트 좌표: (0, 0) 왼쪽 아래, (1, 1) 오른쪽 위
+    //    //1. ScreenToWorldPoint: 화면 좌표를 월드 좌표로 변환
+    //    //2. ScreenToViewportPoint: 화면 좌표를 뷰포트 좌표로 변환
+    //    //3. ViewportToWorldPoint: 뷰포트 좌표를 월드 좌표로 변환
+    //    //4. WorldToScreenPoint:  월드 좌표로 화면 좌표로 변환
+    //    //5. WorldToViewportPoint: 월드 좌표를 뷰포트 화면 좌표로 변환
+    //    //6. ViewportToScreenPoint: 뷰포트 좌표를 화면 좌표로 변환
+    //    // 뷰포트 좌표: (0, 0) 왼쪽 아래, (1, 1) 오른쪽 위
 
-        //스크린의 화면을 마우스로 클릭했을때 3D 공간의 클릭지점으로 오브젝트를 움직일때
-        //Camera.main.ScreenToWorldPoint(Input.mousePosition)
+    //    //스크린의 화면을 마우스로 클릭했을때 3D 공간의 클릭지점으로 오브젝트를 움직일때
+    //    //Camera.main.ScreenToWorldPoint(Input.mousePosition)
 
-        //마우스 왼쪽 버튼을 누르고 있는 동안
-        if (Input.GetMouseButton(0))
-        {
-            // 마우스 스크린 좌표를 월드 좌표로 변환
-            // 플레이어 높이(z)는 유지해줘야 한다.
-            Vector3 mousePos = Input.mousePosition; //스크린 좌표
-            Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
+    //    //마우스 왼쪽 버튼을 누르고 있는 동안
+    //    if (Input.GetMouseButton(0))
+    //    {
+    //        // 마우스 스크린 좌표를 월드 좌표로 변환
+    //        // 플레이어 높이(z)는 유지해줘야 한다.
+    //        Vector3 mousePos = Input.mousePosition; //스크린 좌표
+    //        Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
 
-            worldPos.z = transform.position.z;  //플레이어 높이 유지
+    //        worldPos.z = transform.position.z;  //플레이어 높이 유지
 
-            print("마우스 클릭좌표: " + mousePos);
-            print("월드 좌표: " + worldPos);
-            print("플레이어 월드 좌표: " + transform.position);
+    //        print("마우스 클릭좌표: " + mousePos);
+    //        print("월드 좌표: " + worldPos);
+    //        print("플레이어 월드 좌표: " + transform.position);
 
-            // 만약 원 클릭으로 클릭좌표까지 이동하려면 아래 MoveTowards()함수가 업데이트에 있어야 한다.
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                worldPos, 
-                moveSpeed * Time.deltaTime);
-        }
-    }
+    //        // 만약 원 클릭으로 클릭좌표까지 이동하려면 아래 MoveTowards()함수가 업데이트에 있어야 한다.
+    //        transform.position = Vector3.MoveTowards(
+    //            transform.position,
+    //            worldPos, 
+    //            moveSpeed * Time.deltaTime);
+    //    }
+    //}
 
-    void MoveInScreen()
-    {
-        //플레이어를 화면 밖으로 나가지 못하게 막기
-        // 1. 화면 밖 공간에 큐브 4개 만들어서 배치하면 충돌체 때문에 밖으로 벗어나지 못한다
-        // 2. 플레이어 트랜스폼의 포지션 x, y 값을 고정시킨다
-        //Vector3 position = transform.position;
-        //if (position.x > 2.5f) position.x = 2.5f;
-        //if (position.y < 2.5f) position.y = -2.5f;
-        //유니티에서는 클램프 사용이 더 권장된다 (성능차이 없음)
-        //position.x = Mathf.Clamp(position.x, -2.5f, 2.5f);
-        //position.y = Mathf.Clamp(position.y, -2.5f, 2.5f);
+    //void MoveInScreen()
+    //{
+    //    //플레이어를 화면 밖으로 나가지 못하게 막기
+    //    // 1. 화면 밖 공간에 큐브 4개 만들어서 배치하면 충돌체 때문에 밖으로 벗어나지 못한다
+    //    // 2. 플레이어 트랜스폼의 포지션 x, y 값을 고정시킨다
+    //    //Vector3 position = transform.position;
+    //    //if (position.x > 2.5f) position.x = 2.5f;
+    //    //if (position.y < 2.5f) position.y = -2.5f;
+    //    //유니티에서는 클램프 사용이 더 권장된다 (성능차이 없음)
+    //    //position.x = Mathf.Clamp(position.x, -2.5f, 2.5f);
+    //    //position.y = Mathf.Clamp(position.y, -2.5f, 2.5f);
 
-        // 3. 메인카메라의 뷰포트를 가져와서 처리한다.
-        // 스크린 좌표: 모니터 해상도의 픽셀
-        // 뷰포트 좌표: 카메라의 사각꼴 끝에 있는 사각형 (왼쪽 하단(0,0), 우측 상단(1,1))
-        // UV 좌표: 화면 텍스트, 2D 이미지를 표시하기 위한 좌표계 (텍스처 좌표계라고도 한다)
-        // 왼쪽 상단(0,0), 우측하단(1,1)
+    //    // 3. 메인카메라의 뷰포트를 가져와서 처리한다.
+    //    // 스크린 좌표: 모니터 해상도의 픽셀
+    //    // 뷰포트 좌표: 카메라의 사각꼴 끝에 있는 사각형 (왼쪽 하단(0,0), 우측 상단(1,1))
+    //    // UV 좌표: 화면 텍스트, 2D 이미지를 표시하기 위한 좌표계 (텍스처 좌표계라고도 한다)
+    //    // 왼쪽 상단(0,0), 우측하단(1,1)
 
-        Vector3 position = mainCamera.WorldToViewportPoint(transform.position);
-        position.x = Mathf.Clamp(position.x, 0f + paddingY, 1f - paddingX);
-        position.y = Mathf.Clamp(position.y, 0f + paddingY, 1f - paddingX);
-        transform.position = mainCamera.ViewportToWorldPoint(position);
-    }
+    //    Vector3 position = mainCamera.WorldToViewportPoint(transform.position);
+    //    position.x = Mathf.Clamp(position.x, 0f + paddingY, 1f - paddingX);
+    //    position.y = Mathf.Clamp(position.y, 0f + paddingY, 1f - paddingX);
+    //    transform.position = mainCamera.ViewportToWorldPoint(position);
+    //}
 
-    
+
 }
